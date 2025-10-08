@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #85FFC7;
+  --color-secondary: #297373;
+  --color-accent: #FF8552;
+  --color-light: #E6E6E6;
+  --color-dark: #39393A;
+}
+
+@keyframes subtle-bounce {
+  0%, 100% { transform: translateY(12px); }
+  50% { transform: translateY(0); }
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
