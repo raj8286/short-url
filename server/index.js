@@ -38,7 +38,7 @@ app.use("/api", urlRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
-  app.get("/(.*)", (req, res, next) => {
+  app.get(/^(?!\/(auth|api|s\/[A-Za-z0-9_-]{6}$)).*/, (req, res, next) => {
     // Skip API routes and short URL redirects
     if (req.path.startsWith("/auth") || 
         req.path.startsWith("/api") || 
