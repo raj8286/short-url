@@ -6,7 +6,7 @@ const RightHalf = () => {
     <img 
       src="/home.png" 
       alt="Illustration of a team collaborating on a design project" 
-      className="max-w-xl h-auto pl-12 motion-reduce:animate-none animate-[subtle-bounce_2.5s_ease-in-out_infinite]" 
+      className="max-w-[100%] lg:max-w-xl lg:pl-12 motion-reduce:animate-none animate-[subtle-bounce_2.5s_ease-in-out_infinite]" 
     />
     </div>
   );

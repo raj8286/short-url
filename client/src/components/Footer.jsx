@@ -4,7 +4,7 @@ const Footer = () => {
       <p className="text-lg md:text-xl text-center text-gray-600 mb-6 ">
         The world's top tech companies are yet to rely on ShortURL service to shorten their URLs.
       </p>
-      <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-12">
+      <div className="flex flex-wrap justify-center items-center gap-x-12 md:gap-x-16 gap-y-6">
         <img 
           src="/logos/company3.png" 
           alt="" 
@@ -15,7 +15,7 @@ const Footer = () => {
         <img 
           src="/logos/company1.png" 
           alt="" 
-          className="h-8 md:h-9 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity scale-155" 
+          className="h-8 md:h-9 w-auto mr-2 object-contain opacity-80 hover:opacity-100 transition-opacity scale-155" 
           loading="lazy" 
         />
 

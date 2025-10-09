@@ -16,10 +16,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-400 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-8 md:px-10">
+      <div className="w-full mx-auto px-4 md:px-8">
         <div className="h-24 flex items-center justify-between">
           <Link to="/" className="block">
-            <img src="/logo.png" alt="ShortURL logo" className="h-16 w-auto object-contain" />
+            <img src="/logo.png" alt="ShortURL logo" className="h-12 w-20 object-contain" />
           </Link>
 
           <div className="flex items-center gap-3">
