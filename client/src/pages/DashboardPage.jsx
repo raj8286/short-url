@@ -40,26 +40,28 @@ const DashboardPage = () => {
   }
 
   return (
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="mb-4">
-          <h1 className="text-3xl font-bold text-dark">
-            Welcome, <span className="text-accent">{authUser?.fullName}</span>
-          </h1>
-          <p className="text-lg text-gray-600 my-6">Your shortened URLs</p>
-        </div>
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="mb-4">
+        <h1 className="text-3xl font-bold text-dark">
+          Welcome, <span className="text-accent">{authUser?.fullName}</span>
+        </h1>
+        <p className="text-lg text-gray-600 my-6">Your shortened URLs</p>
+      </div>
 
-        {urls.length === 0 ? (
-          <div className="text-center py-12 bg-white border border-gray-200 rounded-lg">
-            <p className="text-gray-600">
-              No URLs yet. Click{' '}
-              <Link to="/" className="text-accent underline font-medium">
-                here
-              </Link>{' '}
+      {urls.length === 0 ? (
+        <div className="text-center py-12 bg-white border border-gray-200 rounded-lg">
+          <p className="text-gray-600">
+            No URLs yet. Click{' '}
+            <Link to="/" className="text-accent underline font-medium">
+              here
+            </Link>{' '}
             to generate.
           </p>
-          </div>
-        ) : (
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        </div>
+      ) : (
+        <>
+          {/* Desktop Table */}
+          <div className="hidden lg:block bg-white rounded-lg border border-gray-200 overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-secondary text-white">
                 <tr>
@@ -100,16 +102,16 @@ const DashboardPage = () => {
                       <td className="px-6 py-3">
                         {new Date(url.createdAt).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-3 text-center ">{url.clicks}</td>
-                      <td className="px-6 py-3 text-center ">
-                      <button
-                        onClick={() => handleDelete(url.shortUrl)}
-                        className="hover:opacity-80 cursor-pointer"
-                        aria-label="Delete"
-                        title="Delete"
-                      >
-                        <img src="/delete.png" alt="" aria-hidden="true" className="w-6 h-6 pointer-events-none inline-block" />
-                      </button>
+                      <td className="px-6 py-3 text-center">{url.clicks}</td>
+                      <td className="px-6 py-3 text-center">
+                        <button
+                          onClick={() => handleDelete(url.shortUrl)}
+                          className="hover:opacity-80 cursor-pointer"
+                          aria-label="Delete"
+                          title="Delete"
+                        >
+                          <img src="/delete.png" alt="" aria-hidden="true" className="w-6 h-6 pointer-events-none inline-block" />
+                        </button>
                       </td>
                     </tr>
                   )
@@ -117,9 +119,66 @@ const DashboardPage = () => {
               </tbody>
             </table>
           </div>
-        )}
 
-      </div>
+          {/* Mobile Cards */}
+          <div className="lg:hidden space-y-4">
+            {urls.map((url) => {
+              const fullShort = `${SHORT_BASE}/s/${url.shortUrl}`
+              return (
+                <div key={url._id} className="bg-white rounded-lg border border-gray-200 p-4">
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-xs font-semibold text-gray-500 uppercase">Short URL</span>
+                      <a
+                        href={fullShort}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={fullShort}
+                        className="block font-mono text-secondary hover:underline text-sm break-all mt-1"
+                      >
+                        {fullShort}
+                      </a>
+                    </div>
+                    <div>
+                      <span className="text-xs font-semibold text-gray-500 uppercase">Long URL</span>
+                      <a
+                        href={url.longUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={url.longUrl}
+                        className="block truncate hover:underline font-mono text-accent text-sm mt-1"
+                      >
+                        {url.longUrl}
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+                      <div className="flex items-center gap-4">
+                        <div>
+                          <span className="text-xs text-gray-500">Date:</span>
+                          <span className="ml-1 text-sm">{new Date(url.createdAt).toLocaleDateString()}</span>
+                        </div>
+                        <div>
+                          <span className="text-xs text-gray-500">Clicks:</span>
+                          <span className="ml-1 text-sm font-semibold">{url.clicks}</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleDelete(url.shortUrl)}
+                        className="hover:opacity-80 cursor-pointer"
+                        aria-label="Delete"
+                        title="Delete"
+                      >
+                        <img src="/delete.png" alt="" aria-hidden="true" className="w-6 h-6 pointer-events-none" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </>
+      )}
+    </div>
   )
 }
 
