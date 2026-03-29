@@ -91,15 +91,3 @@ export const checkAuth = (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-export const googleAuthCallback = (req, res) => {
-  try {
-    generateToken(req.user._id, res);
-    // res.redirect("/dashboard");    
-    res.redirect(`${process.env.CLIENT_URL}/dashboard`);
-  } catch (error) {
-    console.log("Error in google callback", error.message);
-    // res.redirect("/login");
-    res.redirect(`${process.env.CLIENT_URL}/login`);
-  }
-};

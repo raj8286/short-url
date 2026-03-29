@@ -8,8 +8,6 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import urlRoutes from "./routes/url.routes.js";
 import { redirectUrl } from "./controllers/url.controller.js";  
-import passport from "passport";
-import "./config/passport.js";
 
 dotenv.config();
 
@@ -27,32 +25,25 @@ app.use(cors({
   credentials: true
 }));
 
-// Passport
-app.use(passport.initialize());
 
 // Routes
 app.use("/auth", authRoutes);
 app.use("/api", urlRoutes);
 
+app.get("/s/:shortUrl", redirectUrl);
+
 // Static files from client build (PRODUCTION)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
-  app.get(/^(?!\/(auth|api|s\/[A-Za-z0-9_-]{6}$)).*/, (req, res, next) => {
-    // Skip API routes and short URL redirects
-    if (req.path.startsWith("/auth") || 
-        req.path.startsWith("/api") || 
-        req.path.match(/^\/s\/[a-zA-Z0-9_-]{6}$/)) {
-      return next();
-    }
+  app.get('/*splat', (req, res) => {
     res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
   });
 }
 
-app.get("/s/:shortUrl", redirectUrl);
 
 // Start server
-app.listen(PORT, () => {
-  connectDB();
+app.listen(PORT, async () => {
+  await connectDB();
   console.log(`Server running on port ${PORT}`);
 });
